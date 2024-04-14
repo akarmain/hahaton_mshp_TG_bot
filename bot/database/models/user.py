@@ -25,7 +25,7 @@ class User:
         else:
             language = self.language(parameters['language'])
             user_info = (self.u_id, f"@{parameters["username"]}", str(parameters["first_name"]), str(parameters["last_name"]),
-                         language, str(parameters["language"]), connection_time, 0, 1, "-")
+                         language, str(parameters["language"]), connection_time, 0, 1, "-", "", "")
             db.main_set("users", *user_info)
 
     def language(self, first_language=None):

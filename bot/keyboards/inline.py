@@ -18,5 +18,32 @@ def get_gpt_helper_btn(user_rang: str):
         text=langs[user_rang]["text_lower_all_modes_gpt_helper_btn_make_synopsis"],
         callback_data=f"gpt_helper_btn_make_synopsis"))
     builder.adjust(1)
+    return builder
+
+
+def get_task_btn(user_rang: str):
+    builder = InlineKeyboardBuilder()
+    builder.add(InlineKeyboardButton(
+        text=langs[user_rang]["mode_enabled_task_btn_tag_create"],
+        callback_data=f"tag_create"))
+    builder.add(InlineKeyboardButton(
+        text=langs[user_rang]["mode_enabled_task_btn_tag_all"],
+        callback_data=f"get_all_tag"))
+
+    builder.add(InlineKeyboardButton(
+        text=langs[user_rang]["mode_enabled_task_btn_task_add"],
+        callback_data=f"task_add"))
+    builder.add(InlineKeyboardButton(
+        text=langs[user_rang]["mode_enabled_task_btn_task_all"],
+        callback_data=f"task_all"))
+    builder.add(InlineKeyboardButton(
+        text=langs[user_rang]["mode_enabled_task_btn_task_remind"],
+        callback_data=f"-"))
+
+    builder.add(InlineKeyboardButton(
+        text=langs[user_rang]["mode_enabled_task_btn_task_statistics"],
+        callback_data=f"-"))
+
+    builder.adjust(1)
 
     return builder

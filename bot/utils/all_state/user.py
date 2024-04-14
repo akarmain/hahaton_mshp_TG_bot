@@ -18,3 +18,13 @@ class GptHelperBtnCodeHelp(StatesGroup):
 class GptHelperBtnMakeSynopsis(StatesGroup):
     CONTEXT = State()
     DATA = State()
+
+
+class Tag(StatesGroup):
+    NAME = State()
+
+class Task(StatesGroup):
+    TITLE = State()
+    DESCRIPTION = State()
+    TIME_OVER = State()
+    COMPLEXITY = State()

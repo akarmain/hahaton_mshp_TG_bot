@@ -6,7 +6,7 @@ from aiogram.types import Message
 from loguru import logger
 
 from bot.database.models import User
-from bot.keyboards.inline import get_gpt_helper_btn
+from bot.keyboards.inline import get_gpt_helper_btn, get_task_btn
 from bot.keyboards.reply import btn_menu
 from bot.misc.util import langs, ALL_KEYBOARD
 
@@ -28,9 +28,9 @@ async def cmd_start_handler(msg: Message, bot: Bot) -> None:  # Пользова
             'language': msg.from_user.language_code
         }
         user.add_user(parameters)
-        await msg.answer(langs[user.language()]["start_msg_new"])
-    else:
-        await msg.answer(langs[user.language()]["start_msg_old"])
+        # await msg.answer(langs[user.language()]["start_msg_new"])
+    # else:
+    #     await msg.answer(langs[user.language()]["start_msg_old"])
 
 
 async def handlers_keyboard(my_user, m_text, bot: Bot):
@@ -40,7 +40,8 @@ async def handlers_keyboard(my_user, m_text, bot: Bot):
         await bot.send_message(my_user.u_id, langs[my_user.language()]["text_upper_all_modes_gpt_helper"], reply_markup=builder.as_markup())
     elif m_text == langs[my_user.language()]["main_btn_task_scheduler"]:
         logger.info(f"{my_user} handlers_keyboard_main_btn_task_scheduler")
-        await bot.send_message(my_user.u_id, langs[my_user.language()]["text_upper_all_modes_task_scheduler"])
+        builder = get_task_btn(my_user.language())
+        await bot.send_message(my_user.u_id, langs[my_user.language()]["text_upper_all_modes_task_scheduler"], reply_markup=builder.as_markup())
 
 
 
@@ -52,5 +53,4 @@ async def get_text(msg:Message, bot: Bot):
     if m_text in ALL_KEYBOARD:
         await handlers_keyboard(user, m_text, bot)
         return
-
     await msg.answer(langs[user.language()]["unknown_request"])

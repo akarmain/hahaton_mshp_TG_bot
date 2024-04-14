@@ -26,3 +26,33 @@ def get_user_exists(u_id) -> bool:
         cur.execute(f'SELECT "u_id" FROM "users" WHERE "u_id" = ?', (u_id,))
         return bool(cur.fetchone())
 
+def get_all_tags() -> list[Any]:
+    """
+    Получаем все теги из таблицы.
+
+    :return: Значение из БД
+    """
+    with sq.connect(PATH_BAZE) as con:
+        cur = con.cursor()
+        res = cur.execute("SELECT * FROM tags")
+        return res.fetchall()
+
+def get_all_task() -> list[Any]:
+    """
+    Получаем все task из таблицы.
+
+    :return: Значение из БД
+    """
+    with sq.connect(PATH_BAZE) as con:
+        cur = con.cursor()
+        res = cur.execute("SELECT * FROM tasks")
+        return res.fetchall()
+
+
+
+def get_info_task(id: int) -> list:
+    with sq.connect(PATH_BAZE) as con:
+        cur = con.cursor()
+        res = cur.execute('SELECT * FROM tasks WHERE "id" = ?', (id,))
+        result = res.fetchall()
+        return result[0] if result else None

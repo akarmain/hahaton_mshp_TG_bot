@@ -33,3 +33,10 @@ def update_connection_time(u_id, new_connection_time):
             (updated_time, u_id)
         )
     con.commit()
+
+
+def update_tag(tags, u_id):
+    with sq.connect(PATH_BAZE) as con:
+        sql_query = f'UPDATE "tasks" SET "tags" = ? WHERE "id" = ?'
+        cur = con.cursor()
+        cur.execute(sql_query, (tags, u_id))

@@ -6,7 +6,8 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 from dotenv import load_dotenv
 from loguru import logger
-
+import re
+import datetime
 from bot.database.models import User
 from bot.handlers.admin.main import send_to_channel
 from bot.misc.util import *
@@ -53,3 +54,13 @@ def bot_bug_catcher_msg_bot_state(func):
             await msg.answer(langs[my_user.language]["text_error"])
 
     return wrapper
+
+
+def check_time_format(time_str):
+    if not re.match(r'^\d{2}\.\d{2}\.\d{2} \d{2}:\d{2}$', time_str):
+        return False
+    try:
+        datetime.datetime.strptime(time_str, "%d.%m.%y %H:%M")
+        return True
+    except ValueError:
+        return False

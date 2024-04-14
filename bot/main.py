@@ -7,10 +7,10 @@ from bot.misc import *
 from bot.misc.util import MY_BOT
 
 
-# from bot.utils.set_me import set_me
 
 
 async def in_start(bot: Bot):
+    # from bot.utils.set_me import set_me
     # await set_me(bot)
     logger.info(f"Aiogram START bot: @{MY_BOT}")
 
