@@ -1,66 +1,69 @@
-import string
-
-import pytz
-
+ALL_LANGUAGE_CODES = ["ru", "en"]
 MY_BOT = "hahaton_mshp_bot"
-BOT_VERSION = "BOT VERSION: 0.0.1 25.11.23"
 
-timezone = pytz.timezone('Europe/Moscow')
-MAIN_ADMIN_ID = 912185600
-ALL_LANGUAGE_CODES = ["ru", "en", "de"]
-send_special_id = True
-language_cach = {}
-CHARACTERS = string.ascii_lowercase + string.ascii_uppercase + string.digits
-for char_to_remove in "ABCDEFG":
-    CHARACTERS = CHARACTERS.replace(char_to_remove, '')
-
-ru_lang = {
-    "edit_name": "запятая",
-    "edit_about": "запятая",
+first_request_gpt_helper_explain = "Ты gpt-4-turbo. Жди когда тебе зададут тему или явление, и дай на неё объяснение"
+first_request_gpt_helper_pick_materials = "Ты gpt-4-turbo. Жди пока пользователь введет тему и напиши ресурсы маркированным списком с указанием ссылок в случае с интернет-статьями и названием работы и списком авторов в случае с книгами/научными статьями. Пока пользователь не написал тему проси чтобы он сделал это"
+first_request_gpt_helper_code_help = "Ты gpt-4-turbo"
+first_request_gpt_helper_make_synopsis = "Ты gpt-4-turbo"
+ru_language = {
+    "edit_name": "Главное имя бота",
+    "edit_about": "Описание вверху или при в предпросмотре ссылки",
     "edit_description": "Описание, которое видит пользователь даже не нажав /start",
-    "edit_botpic": "Красивый QR-код",
-    "edit_commands": {
-        "lang": "🏳️ Изменить язык",
+    "edit_commands": {"cmd": "cmd описание"},
 
-                      },
+    "start_msg": "Привет пользователь",
+    "start_msg_new": "Ты новичок",
+    "start_msg_old": "Ты не новичок",
 
-    "reply_keyboards_test_1": "1 кнопка",
-    "reply_keyboards_test_2": "Пример state, введите текст:",
-    "reply_keyboards_test_3": "пример клавиатуры",
-    "example_inline_text": "пример",
-    "example_inline_url": "ссылка",
-    "cmd_start_already_using_bot": "Ты уже активировал бота",
+    "main_btn_gpt_helper": "🤖 GPT-4 помощник",
+    "main_btn_task_scheduler": "📅 Планировщика задач",
+    "main_btn_leave_assistant": "Покинуть помощника",
 
-    "error_no_license": "❌ Недостаточно прав доступа"
+    "text_upper_all_modes_gpt_helper": "Выберите режим помощника GPT-4:",
+    "text_lower_all_modes_gpt_helper_btn_explain": "Объясни",
+    "text_lower_all_modes_gpt_helper_btn_pick_materials": "Подбери материалы",
+    "text_lower_all_modes_gpt_helper_btn_code_help": "Ответь на вопрос по коду",
+    "text_lower_all_modes_gpt_helper_btn_make_synopsis": "Сделай конспект",
+
+    "mode_enabled_gpt_helper_explain": "Вы включили режим по Объясни, пришлите тему или явление.  для отмены нажмите на кнопку снизу",
+    "mode_enabled_gpt_helper_pick_materials": "Вы включили режим по Подбери материалы, пришлите .... для отмены нажмите на кнопку снизу",
+    "mode_enabled_gpt_helper_code_help": "Вы включили режим по Ответь на вопрос по коду, пришлите ....  для отмены нажмите на кнопку снизу",
+    "mode_enabled_gpt_helper_make_synopsis": "Вы включили режим по Сделай конспект, пришлите ....  для отмены нажмите на кнопку снизу",
+
+    "mode_disabled_gpt_helper_explain": "Вы включили режим по Объясни",
+    "mode_disabled_gpt_helper_pick_materials": "Вы включили режим по Подбери материалы",
+    "mode_disabled_gpt_helper_code_help": "Вы включили режим по Ответь на вопрос по коду",
+    "mode_disabled_gpt_helper_make_synopsis": "Вы включили режим по Сделай конспект",
+
+    "text_upper_all_modes_task_scheduler": "Выберите что хотите сделать с заданиями:",
+
+    "unknown_request": "⚠️ Не понимаю Вашего запроса \n /help",
+
+    "mode_1": "режим Объясни",
+    "mode_2": "Ответь на вопрос по коду",
+    "mode_3": "Сделай конспект",
+    "mode_4": "Сделай задачу",
+    "mode_5": "Все задачи",
 }
 
-en_lang = {
-    "edit_name": "Bot s main name",
-    "edit_about": "Description at the top or in the link preview",
-    "edit_description": "Description visible to the user even without clicking /start",
-    "edit_botpic": "Beautiful QR code",
-    "edit_commands": {"lang": "🏳️ Change language",
-                      "cmd": "📍 Administrator commands"
-                     },
-    "reply_keyboards_test_1": "1 button",
-    "reply_keyboards_test_2": "2 button",
-    "reply_keyboards_test_3": "3 button",
-    "example_inline_text": "example",
-    "example_inline_url": "link",
-    "cmd_start_already_using_bot": "You already using bot",
-    "error_no_license": "❌ Insufficient access rights"
+
+en_language = {
+    "edit_name": "Main bot name",
+    "edit_about": "Description at the top or when previewing a link",
+    "edit_description": "Description that the user sees without even pressing /start",
+    "edit_commands": {"cmd": "cmd description"},
+
+    "start_msg": "Hello user",
+    "start_msg_new": "You're a newbie",
+    "start_msg_old": "You're not a newbie",
 }
 
 langs = {
-    "ru": ru_lang,
-    "en": ru_lang,
+    "ru": ru_language,
+    "en": ru_language
 }
-ALL_KEYBOARD = []  # словарь со всеми кнопками
-for l in langs:
-    ALL_KEYBOARD.append(langs[l]["reply_keyboards_test_1"])
-    ALL_KEYBOARD.append(langs[l]["reply_keyboards_test_2"])
-    ALL_KEYBOARD.append(langs[l]["reply_keyboards_test_3"])
 
-if __name__ == '__main__':
-    for name_cmd in langs["ru"]["edit_commands"]:
-        print(name_cmd, langs["ru"]["edit_commands"][name_cmd])
+ALL_KEYBOARD = []
+for l in langs:
+    ALL_KEYBOARD.append(langs[l]["main_btn_task_scheduler"])
+    ALL_KEYBOARD.append(langs[l]["main_btn_gpt_helper"])

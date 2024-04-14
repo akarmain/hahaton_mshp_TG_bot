@@ -19,3 +19,4 @@ rollbar==1.0.0
 typing_extensions==4.10.0
 urllib3==2.2.1
 yarl==1.9.4
+openai==1.13.3

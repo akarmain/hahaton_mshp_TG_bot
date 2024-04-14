@@ -1,22 +1,25 @@
-import loguru
 from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
+from loguru import logger
 
 from bot.handlers.main import register_all_handlers
 from bot.misc import *
 from bot.misc.util import MY_BOT
 
+
+# from bot.utils.set_me import set_me
+
+
 async def in_start(bot: Bot):
     # await set_me(bot)
-    loguru.logger.info(f"Bot aiogram START {MY_BOT}")
+    logger.info(f"Aiogram START bot: @{MY_BOT}")
 
 
 async def in_stop():
-    loguru.logger.info(f"Bot aiogram STOP {MY_BOT}")
+    print("Aiogram bot is stopped")
 
 
 async def start_bot():
-    print(TgKeys.TOKEN)
     bot = Bot(token=TgKeys.TOKEN, parse_mode=ParseMode.HTML)
     dp = Dispatcher()
     dp.startup.register(in_start)

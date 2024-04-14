@@ -1,1 +1,1 @@
-from bot.misc.env import *
+from bot.misc.env import TgKeys

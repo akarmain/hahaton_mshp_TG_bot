@@ -1,52 +1,28 @@
+from typing import List, Any
 from bot.database.methods import *
 
 
-def get_select(key, table: str = "user", cell: str = "*", name_input_key: str = "u_id") -> None:
+def get_user_data(id, cell: str = "*") -> list[Any]:
     """
     1 функция для получения значений из БД
-    :param key:   Уникальный ключ (u_id)
-    :param table: Таблица откуда будем брать
     :param cell:  Значение которое хотим полуить
-    :param name_input_key: Название колонки
 
     :return: Значение из БД
     """
     with sq.connect(PATH_BAZE) as con:
         cur = con.cursor()
-        res = cur.execute(f"SELECT {cell} FROM {table} WHERE {name_input_key} = ?", (key,))
+        res = cur.execute(f'SELECT {cell} FROM "users" WHERE "u_id" = ?', (id,))
         return res.fetchall()
 
 
-def get_language(u_id):
-    return get_select(u_id, "users", "language")[0][0]
-
-
-def in_db_dl(dl):
-    if isinstance(dl, aiogram.utils.magic_filter.MagicFilter):
-        return False
-    return get_select(dl, "invitation_links", "*", "code_links") != []
-
-
-def get_dl(dl):
-    return get_select(dl, "invitation_links", "*", "code_links")[0]
-
-
-def generate_unique_code(length=6):
-    # Генерируем случайную строку указанной длины
-    code = ''.join(secrets.choice(CHARACTERS) for _ in range(length))
-    return code
-
-
-def is_code_unique(code):
+def get_user_exists(u_id) -> bool:
+    """
+    Функция проверяет существует ли пользователь в базе данных.
+    :param id: Идентификатор пользователя для проверки.
+    :return: True если пользователь существует, иначе False.
+    """
     with sq.connect(PATH_BAZE) as con:
-        # Проверяем, есть ли код в базе данных
-        cursor = con.execute("SELECT COUNT(*) FROM text_user WHERE unique_code = ?", (code,))
-        count = cursor.fetchone()[0]
-        return count == 0
+        cur = con.cursor()
+        cur.execute(f'SELECT "u_id" FROM "users" WHERE "u_id" = ?', (u_id,))
+        return bool(cur.fetchone())
 
-
-def get_unique_code(length=6):
-    while True:
-        code = generate_unique_code(length)
-        if is_code_unique(code):
-            return code

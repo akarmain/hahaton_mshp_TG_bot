@@ -1,6 +1,30 @@
-from bot.database.methods.update import main_set_select, get_unique_code
+from bot.database.methods import *
 
 
-def create_ref_url(main_name, description):
-    # Создаёт реферальную ссылку
-    main_set_select("invitation_links", main_name, description, 1, "")
+def create_table_users() -> None:
+    """
+    Функция для создания таблицы "users" в БД.
+    """
+    with sq.connect(PATH_BAZE) as con:
+        create_table_query = """
+        CREATE TABLE IF NOT EXISTS "users" (
+         "u_id" INTEGER,
+         "username" TEXT,
+         "first_name" TEXT,
+         "last_name" TEXT,
+         "language" TEXT,
+         "first_language" TEXT,
+         "connection_time" TEXT,
+         "operations_done" INTEGER,
+         "now_use" INTEGER,
+         "premium_end" TEXT
+        );
+        """
+
+        cur = con.cursor()
+        cur.execute(create_table_query)
+        con.commit()
+
+
+if __name__ == '__main__':
+    create_table_users()
