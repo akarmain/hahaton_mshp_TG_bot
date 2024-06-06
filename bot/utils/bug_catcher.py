@@ -1,6 +1,4 @@
 import os
-
-import rollbar
 from aiogram import Bot
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
@@ -13,19 +11,12 @@ from bot.handlers.admin.main import send_to_channel
 from bot.misc.util import *
 
 load_dotenv()
-rollbar.init(
-    access_token=os.getenv('ROLLBAR_API_KEY'),
-    environment='venv',
-    code_version='1.0'
-)
-
 
 def bot_bug_catcher_msg_bot(func):
     async def wrapper(msg: Message, bot: Bot):
         try:
             await func(msg, bot)
         except Exception as e:
-            rollbar.report_exc_info(extra_data={"user_id": msg.from_user.id})
             logger.error(f"{msg.from_user.id} by bot_bug_catcher_msg | {func.__name__} | {e}")
             my_user = User(msg.from_user.id)
             await send_to_channel(f"""💢❗️SOS Я СЛОМАЛСЯ ❗💢
@@ -43,7 +34,6 @@ def bot_bug_catcher_msg_bot_state(func):
         try:
             await func(msg, bot, state)
         except Exception as e:
-            rollbar.report_exc_info(extra_data={"user_id": msg.from_user.id})
             logger.error(f"{msg.from_user.id} by bot_bug_catcher_msg | {func.__name__} | {e}")
             my_user = User(msg.from_user.id)
             await send_to_channel(f"""💢❗️SOS Я СЛОМАЛСЯ ❗💢

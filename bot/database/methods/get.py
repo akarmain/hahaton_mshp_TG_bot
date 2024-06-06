@@ -56,3 +56,11 @@ def get_info_task(id: int) -> list:
         res = cur.execute('SELECT * FROM tasks WHERE "id" = ?', (id,))
         result = res.fetchall()
         return result[0] if result else None
+
+
+def get_info_tag(id: int) -> list:
+    with sq.connect(PATH_BAZE) as con:
+        cur = con.cursor()
+        res = cur.execute('SELECT * FROM tags WHERE "id" = ?', (id,))
+        result = res.fetchall()
+        return result[0] if result else None

@@ -7,8 +7,6 @@ from bot.misc import TgKeys
 def chatGPT(messages):
     """
     Функция для работы с AI
-    :param question_answers: Строка с
-    :return: Список номеров рекомендуемых подарков
     """
     client = OpenAI(
         api_key=TgKeys.OPENAI_API_KEY,

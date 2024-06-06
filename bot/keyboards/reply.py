@@ -8,7 +8,7 @@ from bot.misc.util import langs
 
 
 async def btn_menu(user, text_menu, bot: Bot):
-    # Создание кнопок для их обновления ReplyKeyboardMarkup
+    # Создание кнопок
     builder = ReplyKeyboardBuilder()
     builder.row(
         KeyboardButton(text=langs[user.language()]["main_btn_gpt_helper"])
@@ -16,6 +16,10 @@ async def btn_menu(user, text_menu, bot: Bot):
 
     builder.row(
         KeyboardButton(text=langs[user.language()]["main_btn_task_scheduler"])
+    )
+
+    builder.row(
+        KeyboardButton(text=langs[user.language()]["btn_detailed_settings"], web_app=WebAppInfo(url="https://jocular-mooncake-3eb52e.netlify.app/home")) # ссылка на webApp
     )
 
     await bot.send_message(user.u_id, text_menu, reply_markup=builder.as_markup(resize_keyboard=True))

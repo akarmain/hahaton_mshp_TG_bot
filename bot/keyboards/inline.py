@@ -36,13 +36,6 @@ def get_task_btn(user_rang: str):
     builder.add(InlineKeyboardButton(
         text=langs[user_rang]["mode_enabled_task_btn_task_all"],
         callback_data=f"task_all"))
-    builder.add(InlineKeyboardButton(
-        text=langs[user_rang]["mode_enabled_task_btn_task_remind"],
-        callback_data=f"-"))
-
-    builder.add(InlineKeyboardButton(
-        text=langs[user_rang]["mode_enabled_task_btn_task_statistics"],
-        callback_data=f"-"))
 
     builder.adjust(1)
 

@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  edu_helper_ai:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    command: [ "python", "./run.py" ]

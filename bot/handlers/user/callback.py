@@ -30,7 +30,7 @@ def register_callback_handlers(dp: Dispatcher):
     dp.callback_query.register(callback_task_add, F.data == "task_add")
     dp.callback_query.register(callback_task_all, F.data == "task_all")
     dp.callback_query.register(callback_info_task, F.data.startswith("info_task_"))
-    # dp.callback_query.register(callback_add_tag, F.data.startswith("add_tag_"))
+
     dp.callback_query.register(callback_updata_tag, F.data.startswith("to_add_tag_"))
     dp.callback_query.register(callback_del_task, F.data.startswith("del_task_"))
 
@@ -156,8 +156,7 @@ async def callback_updata_tag(call: CallbackQuery, state: FSMContext):
     logger.info("callback_updata_tag")
     user = User(call.from_user.id)
     s = call.data[11:].split("_")
-
     task = s[1]
     tag  = s[0]
-    Tasks(t_id=task).add_tag(tag)
+    Tasks(t_id=task).add_tag(Tags(t_id=tag).smn_name())
     await call.bot.send_message(user.u_id, langs[user.language()]["add_tag_ok"])

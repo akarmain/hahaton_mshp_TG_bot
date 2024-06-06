@@ -19,7 +19,6 @@ def register_user_handlers(dp: Dispatcher):
 
 async def cmd_start_handler(msg: Message, bot: Bot) -> None:  # Пользователь нажал на старт
     user = User(msg.from_user.id)
-    await btn_menu(user, langs[user.language()]["start_msg"], bot)
     if user.is_new():
         parameters = {
             'username': msg.from_user.username,
@@ -28,9 +27,9 @@ async def cmd_start_handler(msg: Message, bot: Bot) -> None:  # Пользова
             'language': msg.from_user.language_code
         }
         user.add_user(parameters)
-        # await msg.answer(langs[user.language()]["start_msg_new"])
-    # else:
-    #     await msg.answer(langs[user.language()]["start_msg_old"])
+        await msg.answer(langs[user.language()]["start_msg_new"])
+    else:
+        await btn_menu(user, langs[user.language()]["start_msg_old"], bot)
 
 
 async def handlers_keyboard(my_user, m_text, bot: Bot):
@@ -46,7 +45,6 @@ async def handlers_keyboard(my_user, m_text, bot: Bot):
 
 
 
-# @bot_bug_catcher_msg_bot_state
 async def get_text(msg:Message, bot: Bot):
     m_text = msg.text
     user = User(msg.from_user.id)

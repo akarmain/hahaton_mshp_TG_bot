@@ -1,4 +1,4 @@
-from bot.database import main_set, get_all_tags, del_teg
+from bot.database import main_set, get_all_tags, del_teg, get_info_tag
 
 
 def all_tags():
@@ -31,3 +31,6 @@ class Tags:
 
     def del_me(self):
         del_teg(self.id)
+
+    def smn_name(self):
+        return get_info_tag(self.id)[1]

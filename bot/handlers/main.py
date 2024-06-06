@@ -9,10 +9,10 @@ from bot.handlers.user.state import register_all_state
 
 def register_all_handlers(dp: Dispatcher) -> None:
     handlers = (
+        register_admin_handlers,
         register_callback_handlers,
         register_all_state,
         register_user_handlers,
-        register_admin_handlers,
         register_other_handlers,
     )
     for handler in handlers:
